@@ -18,10 +18,9 @@ jobs:
         run: |
           curl -o other.md https://raw.githubusercontent.com/xx025/carrot/main/README.md
           awk 'BEGIN{flag=1} /^<a/{if(flag) {flag=0;next}} /^<\/a>/{if(!flag) flag=1;next} flag' other.md > tmp.md && mv tmp.md other.md
-          cat other.md
           cat other.md >> README.md
           rm other.md
-          echo "hello" >> 1.md
+          echo "hello1" >> 1.md
       - name: Commit and push changes
         run: |
           git config --global user.email "qyb@qyb.link"
