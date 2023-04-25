@@ -24,6 +24,8 @@ jobs:
           echo "Hello, World!" > 1.md
       - name: Commit and push changes
         run: |
+          git config --global user.email "qyb@qyb.link"
+          git config --global user.name "Tsin81"
           cd $GITHUB_WORKSPACE
           git add 1.md
           git commit -m "Automated commit"
