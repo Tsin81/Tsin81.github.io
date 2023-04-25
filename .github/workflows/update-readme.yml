@@ -21,6 +21,6 @@ jobs:
           cat other.md >> $GITHUB_WORKSPACE/README.md
           cat other.md >> $GITHUB_WORKSPACE/1.md
           rm other.md
-          $GITHUB_WORKSPACE
+          echo "Hello, World!" > $GITHUB_WORKSPACE/Tsin81/Tsin81.github.io/1.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
