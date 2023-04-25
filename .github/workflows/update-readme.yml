@@ -20,7 +20,7 @@ jobs:
           sed -i '0,/<a/{/<a/d;}' other.md
           cat other.md >> README.md
           rm other.md
-          echo "Hello, World!" > 1.md
+          echo "Hello1, World!" > 1.md
       - name: Commit and push changes
         run: |
           git config --global user.email "qyb@qyb.link"
