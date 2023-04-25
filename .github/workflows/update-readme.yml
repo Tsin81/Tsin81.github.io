@@ -18,12 +18,5 @@ jobs:
           sed -i '0,/<a/{/<a/d;}' other.md
           cat other.md >> README.md
           rm other.md
-
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: Copy other.md to README.md and remove first <a> tag
-          repository: ${{ github.repository }}
-          commit_options: '--no-verify'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
