@@ -1,32 +1,74 @@
-name: Copy Markdown file
+name: Update README
 
 on:
-  repository_dispatch:
   push:
     branches:
       - main
-  workflow_dispatch:
-  schedule:
-    - cron: "0 0 * * *"
 
 jobs:
-  copy-markdown:
+  update-readme:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Copy Markdown file
-        run: |
-          curl -o other.md https://raw.githubusercontent.com/xx025/carrot/main/README.md
-          sed -i '0,/<a/{/<a/d;}' other.md
-          cat other.md >> .md
-          cat other.md >> 1.md
-          rm other.md
-          echo "Hello, World!" > 1.md
-          cat 1.md >> ../1.md
-          cd ../
-          pwd
-          ls /home/runner/work/
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Update README
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            // Read other MD file
+            const otherMd = fs.readFileSync(path.join(__dirname, 'https://raw.githubusercontent.com/xx025/carrot/main/README.md'), 'utf8');
+
+            // Remove content from first <a> tag
+            const updatedMd = otherMd.replace(/<a[^>]*>(.*?)<\/a>/, '<a></a>');
+
+            // Read README template
+            let readme = fs.readFileSync(path.join(__dirname, 'README-template.md'), 'utf8');
+
+            // Replace placeholder with updated MD content
+            readme = readme.replace(/<!-- insert-other-md-here -->/g, updatedMd);
+
+            // Write updated README file
+            fs.writeFileSync(path.join(__dirname, 'README.md'), readme);
+
+            // Commit and push changes
+            await github.git.createCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              message: 'Update README',
+              tree: (await github.git.getTree({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                tree_sha: context.sha
+              })).data.tree.map(file => {
+                if (file.path === 'README.md') {
+                  file.content = Buffer.from(readme).toString('base64');
+                }
+                return file;
+              }),
+              parents: [context.sha]
+            });
+
+            await github.git.updateRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `heads/${context.ref.split('/').pop()}`,
+              sha: (await github.git.getRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `heads/${context.ref.split('/').pop()}`
+              })).data.object.sha
+            });
+          secrets: |
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
