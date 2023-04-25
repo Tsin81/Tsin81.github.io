@@ -21,8 +21,6 @@ jobs:
 
       - name: Commit changes
         run: |
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
           git add README.md
           git commit -m "Copy other.md to README.md and remove first <a> tag"
           git push
