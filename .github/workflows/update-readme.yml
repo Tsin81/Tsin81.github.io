@@ -28,7 +28,7 @@ jobs:
             const path = require('path');
 
             // Read other MD file
-            const otherMd = fs.readFileSync(path.join(__dirname, 'path/to/other.md'), 'utf8');
+            const otherMd = fs.readFileSync(path.join(process.cwd(), 'https://github.com/xx025/carrot/blob/main/README.md'), 'utf8');
 
             // Remove content from first <a> tag
             const updatedMd = otherMd.replace(/<a[^>]*>(.*?)<\/a>/, '<a></a>');
