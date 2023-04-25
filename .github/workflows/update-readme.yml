@@ -18,7 +18,7 @@ jobs:
         run: |
           curl -o other.md https://raw.githubusercontent.com/xx025/carrot/main/README.md
           awk 'BEGIN{flag=1} /^<a/{if(flag) {flag=0;next}} /^<\/a>/{if(!flag) flag=1;next} flag' other.md > tmp.md && mv tmp.md other.md
-          cat "" >> README.md
+          echo "" >> README.md
           cat other.md >> README.md
           rm other.md
           echo " 1" >> 1.md
