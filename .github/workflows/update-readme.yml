@@ -17,18 +17,16 @@ jobs:
       - name: Copy Markdown file
         run: |
           curl -o other.md https://raw.githubusercontent.com/xx025/carrot/main/README.md
-          sed -i '0,/<a/{/<a/d;}' other.md
+          awk 'BEGIN{flag=1} /^<a/{if(flag) {flag=0;next}} /^<\/a>/{if(!flag) flag=1;next} flag' other.md > tmp.md && mv tmp.md other.md
           cat other.md >> README.md
           rm other.md
-          echo "Hello1, World!" > 1.md
       - name: Commit and push changes
         run: |
           git config --global user.email "qyb@qyb.link"
           git config --global user.name "Tsin81"
           cd $GITHUB_WORKSPACE
-          git add 1.md
           git add README.md
-          git commit -m "Automated commit"
+          git commit -m "Update md"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
