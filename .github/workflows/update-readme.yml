@@ -1,9 +1,11 @@
 name: Copy Markdown file
 
 on:
+  repository_dispatch:
   push:
     branches:
       - main
+  workflow_dispatch:
   schedule:
     - cron: "0 0 * * *"
 
