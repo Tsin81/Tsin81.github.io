@@ -18,10 +18,7 @@ jobs:
         run: |
           curl -o other.md https://raw.githubusercontent.com/xx025/carrot/main/README.md
           sed -i '0,/<a/{/<a/d;}' other.md
-          cat other.md >> README.md
+          cat other.md >> $GITHUB_WORKSPACE/README.md
           rm other.md
-          pwd
-          git log -n 1
-          pwd
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
