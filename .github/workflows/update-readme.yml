@@ -28,19 +28,19 @@ jobs:
             const path = require('path');
 
             // Read other MD file
-            const otherMd = fs.readFileSync(path.join(__dirname, 'https://raw.githubusercontent.com/xx025/carrot/main/README.md'), 'utf8');
+            const otherMd = fs.readFileSync(path.join(process.cwd(), 'https://raw.githubusercontent.com/xx025/carrot/main/README.md'), 'utf8');
 
             // Remove content from first <a> tag
             const updatedMd = otherMd.replace(/<a[^>]*>(.*?)<\/a>/, '<a></a>');
 
             // Read README template
-            let readme = fs.readFileSync(path.join(__dirname, 'README-template.md'), 'utf8');
+            let readme = fs.readFileSync(path.join(process.cwd(), 'README-template.md'), 'utf8');
 
             // Replace placeholder with updated MD content
             readme = readme.replace(/<!-- insert-other-md-here -->/g, updatedMd);
 
             // Write updated README file
-            fs.writeFileSync(path.join(__dirname, 'README.md'), readme);
+            fs.writeFileSync(path.join(process.cwd(), 'README.md'), readme);
 
             // Commit and push changes
             await github.git.createCommit({
