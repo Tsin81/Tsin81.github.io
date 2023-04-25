@@ -23,7 +23,7 @@ jobs:
           rm other.md
           echo "Hello, World!" > 1.md
           cat 1.md
-          /home/runner/work/
+          ls /home/runner/work/
           pwd
           cd ../
           pwd
