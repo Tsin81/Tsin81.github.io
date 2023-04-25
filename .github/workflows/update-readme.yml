@@ -20,11 +20,10 @@ jobs:
           rm other.md
 
       - name: Commit changes
-        run: |
-          git config --global user.email "qyb@qyb.link"
-          git config --global user.name "Tsin81"
-          git add README.md
-          git commit -m "Copy other.md to README.md and remove first <a> tag"
-          git push
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Copy other.md to README.md and remove first <a> tag
+          repository: ${{ github.repository }}
+          commit_options: '--no-verify'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
