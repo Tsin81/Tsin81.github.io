@@ -23,8 +23,11 @@ jobs:
           rm other.md
           echo "Hello, World!" > 1.md
           cat 1.md
-          $GITHUB_WORKSPACE
+          /home/runner/work/
+          pwd
           cd ../
-          $GITHUB_WORKSPACE
+          pwd
+          cd /home/runner/work/
+          pwd
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
