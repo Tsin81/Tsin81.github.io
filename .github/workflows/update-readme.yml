@@ -25,7 +25,6 @@ jobs:
           cat 1.md >> ../1.md
           cd ../
           pwd
-          cd /home/runner/work/
-          pwd
+          ls /home/runner/work/
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
