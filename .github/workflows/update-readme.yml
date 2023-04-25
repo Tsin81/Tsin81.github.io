@@ -21,12 +21,14 @@ jobs:
           cat other.md
           cat other.md >> README.md
           rm other.md
+          echo "hello" >> 1.md
       - name: Commit and push changes
         run: |
           git config --global user.email "qyb@qyb.link"
           git config --global user.name "Tsin81"
           cd $GITHUB_WORKSPACE
           git add README.md
+          git add 1.md
           git commit -m "Update md"
           git push
         env:
