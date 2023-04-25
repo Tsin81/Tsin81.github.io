@@ -18,8 +18,7 @@ jobs:
         run: |
           curl -o other.md https://raw.githubusercontent.com/xx025/carrot/main/README.md
           sed -i '0,/<a/{/<a/d;}' other.md
-          cat other.md >> .md
-          cat other.md >> 1.md
+          cat other.md >> README.md
           rm other.md
           echo "Hello, World!" > 1.md
       - name: Commit and push changes
@@ -28,6 +27,7 @@ jobs:
           git config --global user.name "Tsin81"
           cd $GITHUB_WORKSPACE
           git add 1.md
+          git add README.md
           git commit -m "Automated commit"
           git push
         env:
