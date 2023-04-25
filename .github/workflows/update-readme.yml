@@ -20,7 +20,7 @@ jobs:
           sed -i '0,/<a/{/<a/d;}' other.md
           cat other.md >> README.md
           rm other.md
+          pwd
           git log -n 1
-          cat README.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
