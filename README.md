@@ -39,7 +39,7 @@ ${x;s/\n//;G}' other.md
   <tr>
     <td>2.</td>
     <td><img src="https://st.ai55.cc/favicon/poe.com.ico" alt="favicon" style="height: 20px !important;width: 20px !important;" ></td>
-    <td><a > Poe.com </a> </td>
+    <td><a target="_blank"> Poe.com </a> </td>
     <td>🛫🔑😄⭐</td>
     <td></td> 
     <td><a >🔗 </a> </td> 
@@ -48,7 +48,7 @@ ${x;s/\n//;G}' other.md
   <tr>
     <td>3.</td>
     <td><img src="https://st.ai55.cc/favicon/gpt.xcbl.cc.ico" alt="favicon" style="height: 20px !important;width: 20px !important;" ></td>
-    <td><a > Gpt.xcbl.cc </a> </td>
+    <td><a target="_blank"> Gpt.xcbl.cc </a> </td>
     <td>😄⭐ </td>
     <td></td> 
     <td><a >🔗 </a> </td> 
@@ -57,7 +57,7 @@ ${x;s/\n//;G}' other.md
   <tr>
     <td>4.</td>
     <td><img src="https://st.ai55.cc/favicon/theb.ai.png" alt="favicon" style="height: 20px !important;width: 20px !important;" ></td>
-    <td><a > Chatbot.theb.ai </a> </td>
+    <td><a target="_blank"> Chatbot.theb.ai </a> </td>
     <td>🛫🆕😄⭐ </td>
     <td></td> 
     <td><a >🔗 </a> </td> 
