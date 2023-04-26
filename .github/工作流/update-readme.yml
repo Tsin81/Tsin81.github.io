@@ -18,17 +18,17 @@ jobs:
         run: |
           curl -o other.md https://raw.githubusercontent.com/xx025/carrot/main/README.md
           awk 'BEGIN{flag=1} /^<a/{if(flag) {flag=0;next}} /^<\/a>/{if(!flag) flag=1;next} flag' other.md > tmp.md && mv tmp.md other.md
-          mv other.md README.md
+          sed -n '$p;${q}' other.md > README.md
+          sed -n '$!p' other.md >> README.md
           rm other.md
-          echo " 1" >> 1.md
+          rm tmp.md
       - name: Commit and push changes
         run: |
           git config --global user.email "qyb@qyb.link"
           git config --global user.name "Tsin81"
           cd $GITHUB_WORKSPACE
           git add README.md
-          git add 1.md
-          git commit -m "Update md"
+          git commit -m "Update README.md"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
