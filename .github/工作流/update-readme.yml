@@ -21,7 +21,6 @@ jobs:
           sed -n '$p;${q}' other.md > README.md
           sed -n '$!p' other.md >> README.md
           rm other.md
-          rm tmp.md
       - name: Commit and push changes
         run: |
           git config --global user.email "qyb@qyb.link"
