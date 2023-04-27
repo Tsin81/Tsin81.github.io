@@ -1,9 +1,6 @@
 name: Copy Markdown file
 
 on:
-  push:
-    branches:
-      - main
   schedule:
     - cron: "0 */12 * * *"
 
