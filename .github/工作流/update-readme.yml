@@ -1,37 +1,35 @@
+
 name: Copy Markdown file
 
 on:
   push:
     branches:
       - main
-  schedule: # 定时任务配置，每隔12小时触发工作流程
-    - cron: "0 12 * * *"
+  schedule:
+    - cron: "0 */12 * * *"
 
 jobs:
   copy-markdown:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code # 检出代码仓库
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Copy Markdown file # 复制 Markdown 文件
+      - name: Copy Markdown file
         run: |
-          curl -o other.md https://raw.githubusercontent.com/xx025/carrot/main/README.md # 使用 curl 下载 README.md 文件到本地的 other.md
-          awk 'BEGIN{flag=1} /^<a/{if(flag) {flag=0;next}} /^<\/a>/{if(!flag) flag=1;next} flag' other.md > tmp.md && mv tmp.md other.md # 使用 awk 处理 other.md 文件，将特定区域的内容提取到 tmp.md，然后重命名为 other.md
-          sed -n '$p;${q}' other.md > README.md # 提取 other.md 文件中最后一行，并覆盖写入 README.md
-          sed -n '$!p' other.md >> README.md # 将 other.md 文件除最后一行外的内容追加写入 README.md
-          rm other.md # 删除临时文件 other.md
-          echo "Compalete,End!"
-
-      - name: Commit and push changes # 提交并推送更改
+          curl -o other.md https://raw.githubusercontent.com/xx025/carrot/main/README.md
+          awk 'BEGIN{flag=1} /^<a/{if(flag) {flag=0;next}} /^<\/a>/{if(!flag) flag=1;next} flag' other.md > tmp.md && mv tmp.md other.md
+          cat other.md > README.md
+          rm other.md
+          echo " 1" >> 1.md
+      - name: Commit and push changes
         run: |
-          git config --global user.email "qyb@qyb.link" # 设置提交者邮箱
-          git config --global user.name "Tsin81" # 设置提交者名称
-          cd $GITHUB_WORKSPACE # 进入工作目录
-          git add README.md # 将 README.md 文件添加到 Git 暂存区
-          git commit -m "Update README.md" # 提交更改并添加提交信息
-          git push # 推送更改到远程仓库
-
+          git config --global user.email "qyb@qyb.link"
+          git config --global user.name "Tsin81"
+          cd $GITHUB_WORKSPACE
+          git add README.md
+          git add 1.md
+          git commit -m "Update md"
+          git push
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # 使用 GitHub 令牌认证推送操作
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
