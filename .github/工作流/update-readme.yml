@@ -2,6 +2,8 @@ name: Copy Markdown file
 
 on:
   push:
+    branches:
+      - main
   schedule: # 定时任务配置，每隔12小时触发工作流程
     - cron: "0 12 * * *"
 
@@ -20,7 +22,7 @@ jobs:
           sed -n '$p;${q}' other.md > README.md # 提取 other.md 文件中最后一行，并覆盖写入 README.md
           sed -n '$!p' other.md >> README.md # 将 other.md 文件除最后一行外的内容追加写入 README.md
           rm other.md # 删除临时文件 other.md
-          run echo Compalete,End!
+          echo "Compalete,End!"
 
       - name: Commit and push changes # 提交并推送更改
         run: |
