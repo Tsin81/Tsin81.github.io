@@ -1,34 +1,56 @@
 
-name: Copy Markdown file
+# name: Copy Markdown file
+
+# on:
+#   push:
+#     branches:
+#       - main
+#   schedule:
+#     - cron: "0 */12 * * *"
+
+# jobs:
+#   copy-markdown:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Copy Markdown file
+#         run: |
+#           curl -o other.md https://raw.githubusercontent.com/xx025/carrot/main/README.md
+#           cat other.md > README.md
+#           rm other.md
+#           echo " 1" >> 1.md
+#       - name: Commit and push changes
+#         run: |
+#           git config --global user.email "qyb@qyb.link"
+#           git config --global user.name "Tsin81"
+#           cd $GITHUB_WORKSPACE
+#           git add README.md
+#           git add 1.md
+#           git commit -m "Update md"
+#           git push
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+name: Sync with upstream
 
 on:
-  push:
-    branches:
-      - main
   schedule:
-    - cron: "0 */12 * * *"
+    - cron: "0 0 * * *"
 
 jobs:
-  copy-markdown:
+  sync:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
 
-      - name: Copy Markdown file
-        run: |
-          curl -o other.md https://raw.githubusercontent.com/xx025/carrot/main/README.md
-          cat other.md > README.md
-          rm other.md
-          echo " 1" >> 1.md
-      - name: Commit and push changes
-        run: |
-          git config --global user.email "qyb@qyb.link"
-          git config --global user.name "Tsin81"
-          cd $GITHUB_WORKSPACE
-          git add README.md
-          git add 1.md
-          git commit -m "Update md"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Sync with upstream
+      run: |
+        git remote add upstream https://github.com/xx025/carrot
+        git fetch upstream
+        git merge upstream/master
+        git push origin master
